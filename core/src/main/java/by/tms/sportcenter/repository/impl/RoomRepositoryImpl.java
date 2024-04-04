@@ -2,6 +2,7 @@ package by.tms.sportcenter.repository.impl;
 
 import by.tms.sportcenter.config.HibernateJavaConfig;
 import by.tms.sportcenter.entity.Room;
+import by.tms.sportcenter.entity.Service;
 import by.tms.sportcenter.repository.RoomRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -15,6 +16,9 @@ public class RoomRepositoryImpl implements RoomRepository {
         SessionFactory sessionFactory = HibernateJavaConfig.getSessionFactory();
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
+
+            Service service=new Service();
+            room.setService(service);
             session.saveOrUpdate(room);
             session.getTransaction().commit();
         } catch (Exception e) {

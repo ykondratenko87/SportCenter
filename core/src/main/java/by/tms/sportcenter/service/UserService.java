@@ -7,6 +7,7 @@ import by.tms.sportcenter.repository.ServiceRepository;
 import by.tms.sportcenter.repository.UserRepository;
 import by.tms.sportcenter.repository.impl.ServiceRepositoryImpl;
 import by.tms.sportcenter.repository.impl.UserRepositoryImpl;
+import by.tms.sportcenter.repository.javaConfig.UserRepositoryConfig;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class UserService {
     private final ServiceRepository serviceRepository = new ServiceRepositoryImpl();
 
     public UserService() {
-        this.repository = new UserRepositoryImpl(); // Создаем экземпляр UserRepositoryImpl
+        this.repository = new UserRepositoryConfig();
     }
 
     public void add(User user) {
@@ -28,14 +29,6 @@ public class UserService {
 
     public void delete(User user) {
         repository.delete(user);
-    }
-
-    public void changeStatus(User user, UserStatus newStatus) {
-        repository.changeStatus(user, newStatus);
-    }
-
-    public void updateLastVisitDate(User user) {
-        repository.updateLastVisitDate(user);
     }
 
     public void addService(Service service) {
