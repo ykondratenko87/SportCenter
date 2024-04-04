@@ -1,13 +1,13 @@
 package by.tms.sportcenter.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.math.BigDecimal;
 
 @Data
 @Entity
-@Table(name = "service")
+@Table(schema = "sportcenter", name = "service")
 public class Service {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

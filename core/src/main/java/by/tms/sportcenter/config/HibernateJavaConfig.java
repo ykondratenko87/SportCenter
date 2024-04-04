@@ -1,9 +1,6 @@
 package by.tms.sportcenter.config;
 
-import by.tms.sportcenter.entity.Room;
-import by.tms.sportcenter.entity.Service;
-import by.tms.sportcenter.entity.User;
-import by.tms.sportcenter.entity.UserStatus;
+import by.tms.sportcenter.entity.*;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -28,10 +25,8 @@ public class HibernateJavaConfig {
         properties.setProperty("hibernate.format_sql", "true");
         configuration = new Configuration();
         configuration.addAnnotatedClass(User.class);
-        configuration.addAnnotatedClass(Service.class);
-        configuration.addAnnotatedClass(Room.class);
-        configuration.addAnnotatedClass(UserStatus.class);
-
+        configuration.addAnnotatedClass(Worker.class);
+        configuration.addAnnotatedClass(Customer.class);
         configuration.setProperties(properties);
         serviceRegistryBuilder = new StandardServiceRegistryBuilder();
         serviceRegistryBuilder.applySettings(properties);

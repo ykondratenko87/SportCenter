@@ -1,113 +1,55 @@
 package by.tms.sportcenter;
 
-import by.tms.sportcenter.config.HibernateJavaConfig;
-import by.tms.sportcenter.entity.Room;
-import by.tms.sportcenter.entity.Service;
-import by.tms.sportcenter.entity.User;
-import by.tms.sportcenter.entity.UserStatus;
-import by.tms.sportcenter.service.RoomService;
+import by.tms.sportcenter.entity.*;
+import by.tms.sportcenter.service.CustomerService;
 import by.tms.sportcenter.service.UserService;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import by.tms.sportcenter.service.WorkerService;
 
 import java.math.BigDecimal;
-import java.util.List;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Main {
     public static void main(String[] args) {
-        // Создаем экземпляры сервисов UserService и RoomService
         UserService userService = new UserService();
-        RoomService roomService = new RoomService();
+        CustomerService customerService = new CustomerService();
+        WorkerService workerService = new WorkerService();
 
-        // Создаем пользователя
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
         User user = new User();
-        user.setName("Yuri");
-        user.setSurname("Kondratenko");
-        user.setAge(36);
-        user.setPhoneNumber("125776789");
-        user.setLastVisitDate(java.time.LocalDate.now());
-        user.setStatus(UserStatus.ACTIVE);
-        user.setSpentAmount(BigDecimal.valueOf(0));
-
-        // Добавляем пользователя через UserService
+        String date = "16/08/1995";
+        LocalDate localDate = LocalDate.parse(date, formatter);
+        user.setName("Ivan");
+        user.setSurname("Ivanov");
+        user.setAddress("Timirjazeva");
+        user.setBirthday(localDate);
         userService.add(user);
-        System.out.println("Клиент добавлен.");
 
-        // Получаем и выводим список пользователей
-        List<User> users = userService.getAllUsers();
-        System.out.println("Список пользователей:");
-        for (User u : users) {
-            System.out.println(u);
-        }
+        Customer customer = new Customer();
+        String date1 = "15/09/2010";
+        String date2 = "15/09/2011";
+        LocalDate localDate1 = LocalDate.parse(date1, formatter);
+        LocalDate localDate2 = LocalDate.parse(date2, formatter);
+        customer.setFirstVisitDate(localDate1);
+        customer.setLastVisitDate(localDate2);
+        String spentAmountStr = "1000.50";
+        BigDecimal spentAmount = new BigDecimal(spentAmountStr);
+        customer.setSpentAmount(spentAmount);
+        customer.setStatus(UserStatus.ACTIVE);
+        customerService.add(customer);
 
-        // Удаляем пользователя
-        userService.delete(user);
-        System.out.println("Клиент удален.");
-
-        // Меняем статус пользователя
-        userService.changeStatus(user, UserStatus.BLOCKED);
-        System.out.println("Статус изменен на BLOCKED.");
-
-        // Обновляем дату последнего посещения пользователя
-        userService.updateLastVisitDate(user);
-        System.out.println("Дата последнего посещения обновлена.");
-
-        // Получаем пользователя через Hibernate
-        SessionFactory sessionFactory = HibernateJavaConfig.getSessionFactory();
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        long userId = 1;
-        User foundUser = session.get(User.class, userId);
-        System.out.println("Найден клиент:");
-        System.out.println(foundUser);
-        session.getTransaction().commit();
-        session.close();
-        sessionFactory.close();
-
-        // Создаем услуги
-        Service service1 = new Service();
-        service1.setServiceName("Теннис");
-        service1.setCost(BigDecimal.valueOf(100));
-
-        Service service2 = new Service();
-        service2.setServiceName("Плавание");
-        service2.setCost(BigDecimal.valueOf(80));
-
-        // Добавляем услуги через UserService
-        userService.addService(service1);
-        userService.addService(service2);
-
-        // Выводим список всех услуг
-        List<Service> services = userService.getAllServices();
-        System.out.println("Список услуг:");
-        for (Service service : services) {
-            System.out.println(service.getId() + ": " + service.getServiceName() + " - " + service.getCost());
-        }
-
-        // Создаем комнаты
-        Room room1 = new Room();
-        room1.setRoomName("Теннисный зал");
-        room1.setIdentificationNumber("T001");
-        room1.setMaxCapacity(10);
-        room1.setStatus("Активен");
-        room1.setHourlyRate(BigDecimal.valueOf(50));
-
-        Room room2 = new Room();
-        room2.setRoomName("Бассейн");
-        room2.setIdentificationNumber("P001");
-        room2.setMaxCapacity(20);
-        room2.setStatus("На ремонте");
-        room2.setHourlyRate(BigDecimal.valueOf(100));
-
-        // Добавляем комнаты через RoomService
-        roomService.addRoom(room1);
-        roomService.addRoom(room2);
-
-        // Выводим список всех комнат
-        List<Room> rooms = roomService.getAllRooms();
-        System.out.println("Список предоставляемых помещений:");
-        for (Room room : rooms) {
-            System.out.println(room.getId() + ": " + room.getRoomName() + " - " + room.getHourlyRate() + " за 1 час");
-        }
+        Worker worker = new Worker();
+        String date3 = "14/10/2009";
+        String date4 = "14/10/2010";
+        LocalDate localDate3 = LocalDate.parse(date3, formatter);
+        LocalDate localDate4 = LocalDate.parse(date4, formatter);
+        worker.setFirstWorkDay(localDate3);
+        worker.setDismissal(localDate4);
+        worker.setPosition("builder");
+        String spentAmountStr1 = "1100.70";
+        BigDecimal spentAmount1 = new BigDecimal(spentAmountStr1);
+        worker.setSalary(spentAmount1);
+        workerService.add(worker);
     }
 }

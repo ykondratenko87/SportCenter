@@ -1,13 +1,13 @@
 package by.tms.sportcenter.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.math.BigDecimal;
 
 @Data
 @Entity
-@Table(name = "room")
+@Table(schema = "sportcenter", name = "room")
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,4 +22,7 @@ public class Room {
     private String status;
     @Column(name = "hourly_rate")
     private BigDecimal hourlyRate;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "service_id")
+    private Service service;
 }
