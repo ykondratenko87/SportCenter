@@ -3,9 +3,10 @@ package by.tms.sportcenter.service;
 import by.tms.sportcenter.entity.Room;
 import by.tms.sportcenter.repository.RoomRepository;
 import by.tms.sportcenter.repository.impl.RoomRepositoryImpl;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class RoomService {
     private final RoomRepository roomRepository = new RoomRepositoryImpl();
 
