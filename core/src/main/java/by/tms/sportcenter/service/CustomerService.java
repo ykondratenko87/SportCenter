@@ -4,7 +4,9 @@ import by.tms.sportcenter.entity.Customer;
 import by.tms.sportcenter.repository.CustomerRepository;
 import by.tms.sportcenter.repository.impl.CustomerRepositoryImpl;
 import by.tms.sportcenter.repository.javaConfig.CustomerRepositoryConfig;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CustomerService {
     private final CustomerRepository repository;
 

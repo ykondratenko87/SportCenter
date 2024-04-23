@@ -4,11 +4,12 @@ import by.tms.sportcenter.config.HibernateConnection;
 import by.tms.sportcenter.entity.User;
 import by.tms.sportcenter.repository.UserRepository;
 import jakarta.persistence.EntityManager;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public class UserRepositoryImpl implements UserRepository {
-    @Override
+public class UserRepositoryImpl {
+
     public void add(User user) {
         EntityManager entityManager = HibernateConnection.getEntityManager();
         entityManager.getTransaction().begin();
@@ -17,7 +18,7 @@ public class UserRepositoryImpl implements UserRepository {
         entityManager.close();
     }
 
-    @Override
+
     public List<User> getAllUsers() {
         EntityManager entityManager = HibernateConnection.getEntityManager();
         List<User> users = entityManager.createQuery("SELECT u FROM User u", User.class).getResultList();
@@ -25,7 +26,7 @@ public class UserRepositoryImpl implements UserRepository {
         return users;
     }
 
-    @Override
+
     public void delete(User user) {
         EntityManager entityManager = HibernateConnection.getEntityManager();
         entityManager.getTransaction().begin();

@@ -6,9 +6,10 @@ import by.tms.sportcenter.repository.ServiceRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+@Repository
 public class ServiceRepositoryImpl implements ServiceRepository {
     @Override
     public void save(Service service) {
